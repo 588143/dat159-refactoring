@@ -17,23 +17,12 @@ public class Customer {
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
-            
             Rental each = (Rental) rentals.nextElement();
-
-            // determine amount for each line
-           double thisAmount = each.eachAmount();  //Extract method and move it into Rental class
-
-            // add frequent renter points
-            frequentRenterPoints ++;
-            // add bonus for a two day new release rental
-            int Price=each.getMovie().getPriceCode();
-            		if ((Price == Movie.NEW_RELEASE) &&
-                    each.getDaysRented() > 1) frequentRenterPoints ++;
-
-            //show figures for this rental
+            frequentRenterPoints +=each.getPoints();
+           //show figures for this rental
             result += "\t" + each.getMovie().getTitle()+ "\t" +
-                    String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
+                    String.valueOf(each.getAmount()) + "\n";
+            totalAmount += each.getAmount();
         }
         //add footer lines
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
